@@ -4,7 +4,7 @@ const express = require('express'),
     io = require('socket.io')(http),
     path = require('path');
 
-app.use(express.static(path.join(__dirname, 'bootstrap')));
+app.use(express.static(path.join(__dirname, 'css')));
 
 //Send file HTML Native
 app.get('/', (req, res) => {
