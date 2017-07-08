@@ -45,13 +45,23 @@
                 $('#messages').append($('<li>').text(()=>{
                     return `${data.usr} : ${data.msg}` ;
                 })); //send value of chat to ul with id=message
+
+            });
+
+            //Check User Online
+            socket.on('userOn', (data)=>{
+                $('#on').text(data + " User Online");
             });
 
         });
     </script>
   </head>
   <body>
-    <h1>Socket.IO Chat</h1>
+    <center>
+        <h1>Socket.IO Chat</h1>
+        <h4 id="on"></h4>
+    </center>
+    <hr>
     <div class="container">
         <ul id="messages"></ul>
         <form action="">

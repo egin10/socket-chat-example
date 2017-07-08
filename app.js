@@ -9,13 +9,19 @@ app.get('/', (req, res) => {
 });
 
 
+let userOnline = 0;
 // Define Socket.io if http client is on connection
 io.on('connection', socket => {
-    console.log('a user connected!');
+    userOnline += 1;
+    console.log(userOnline + ' user connected!');
+
+    io.emit('userOn', userOnline);
 
     // Define Socket.io if http client is disconnect
     socket.on('disconnect', () => {
-        console.log('user diconnected!');
+        // console.log('user diconnected!');
+        userOnline -= 1;
+        io.emit('userOn', userOnline);
     });
 
     // Fetch value from client and parsing it to callback
