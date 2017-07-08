@@ -29,11 +29,11 @@
         
         // JQuery to get from form input
         $(function () {
-            let user = prompt('username oi?');
+            let user = prompt('Enter your username!');
 
-            if(user == ""){
+            if(user == null){
                 alert("Username cannot be null!");
-                location.reload();
+                location.href('http://localhost:8000');
             } else {
                 socket.emit('userJoin', user);
             }
