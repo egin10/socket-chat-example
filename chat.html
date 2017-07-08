@@ -25,9 +25,19 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
+        let socket = io(); // Define socket.id client
+        
         // JQuery to get from form input
         $(function () {
-            let socket = io(); // Define socket.id client
+            let user = prompt('username oi?');
+
+            if(user == ""){
+                alert("Username cannot be null!");
+                location.reload();
+            } else {
+                socket.emit('userJoin', user);
+            }
+
             $('form').submit(() => {
                 if ($('#u').val() == "") {
                     alert("Username cannot be null");
@@ -35,7 +45,7 @@
                     alert("Cannot send null message!");
                 } else {
                     const newData = {
-                        usr: "egin",
+                        usr: user,
                         msg: $('#m').val(),
                     };
 
@@ -62,9 +72,7 @@
                                 </p>
                             </div>`;
 
-                $('#chat').append($('<li class="right clearfix">').html(() => {
-                    return html;
-                })); //send value of chat to ul with id=message
+                $('#chat').append($('<li class="right clearfix">').html(html)); //send value of chat to ul with id=message
 
             });
 
@@ -73,8 +81,13 @@
                 $('#on').text(data + " User Online");
             });
 
+            //Check Username of User Online
+            socket.on('userJoin', (data) => {
+                $('#chat').append($('<li class="right clearfix">').html(`<p>${data} is join here.</p>`));
+            });
+
             // format time
-            function formatDate(date) {
+            let formatDate = date => {
                 var hours = date.getHours();
                 var minutes = date.getMinutes();
                 var ampm = hours >= 12 ? 'pm' : 'am';

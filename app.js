@@ -4,11 +4,13 @@ const express = require('express'),
     io = require('socket.io')(http),
     path = require('path');
 
+//======= MIDDLEWARE
 app.use(express.static(path.join(__dirname, 'css')));
 
+//======= ROUTING
 //Send file HTML Native
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/chat.html');
 });
 
 
@@ -25,6 +27,10 @@ io.on('connection', socket => {
         // console.log('user diconnected!');
         userOnline -= 1;
         io.emit('userOn', userOnline);
+    });
+
+    socket.on('userJoin', (data) => {
+        io.emit('userJoin', data);
     });
 
     // Fetch value from client and parsing it to callback
