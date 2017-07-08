@@ -1,0 +1,15 @@
+{
+  "name": "socket-chat-example",
+  "version": "1.0.0",
+  "description": "Learn use socket.id to make a simple web chat",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Ginanjar S.B | egin10",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3",
+    "socket.io": "^2.0.3"
+  }
+}
